@@ -1,0 +1,90 @@
+# HestiaOS Community Edition — Docker Compose
+# =============================================
+# Phase 1 — Edition Build Pipeline
+#
+# Start:   docker compose up -d
+# Stop:    docker compose down
+# Logs:    docker compose logs -f
+#
+# Services:
+#   core       — hestiaos-core Governance Kernel & Execution Runtime (FastAPI)
+#   mcp-server — mcp-server MCP Server (STDIO → HTTP bridge)
+#
+# Network: Local-First — alle Services binden an 127.0.0.1
+
+services:
+  # ── Core: Governance Kernel & Execution Runtime ──────────────────────────
+  core:
+    build:
+      context: ../hestiaos-core
+      dockerfile: Dockerfile
+      args:
+        PYTHON_VERSION: "3.12"
+    image: hestiaos/hestiaos-core:community-0.1.0
+    container_name: hestiaos-core
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      - CORE_HOST=0.0.0.0
+      - CORE_PORT=8000
+      - HESTIAOS_EDITION=community
+      - HESTIAOS_ENV=development
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - hestiaos-community
+    volumes:
+      # Editable-Mount für Entwicklung (Hot-Reload via uvicorn --reload)
+      - ../hestiaos-core:/app
+    command: >
+      uvicorn core.bootstrap.app_factory:create_ce_app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+      --log-level info
+
+  # ── MCP Server ───────────────────────────────────────────────────────────
+  mcp-server:
+    build:
+      context: ../mcp-server
+      dockerfile: Dockerfile
+      args:
+        PYTHON_VERSION: "3.12"
+    image: hestiaos/mcp-server:community-0.1.0
+    container_name: hestiaos-mcp-server
+    ports:
+      - "127.0.0.1:8001:8001"
+    environment:
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=8001
+      - HESTIAOS_EDITION=community
+      - HESTIAOS_ENV=development
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      core:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8001/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+    networks:
+      - hestiaos-community
+    volumes:
+      - ../mcp-server:/app
+    command: >
+      python wiki_mcp_server.py
+
+networks:
+  hestiaos-community:
+    name: hestiaos-community
+    driver: bridge
+    attachable: true

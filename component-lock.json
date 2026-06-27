@@ -1,0 +1,53 @@
+{
+    "lock_version": "0.1.0",
+    "edition": "community",
+    "edition_status": "developer-preview",
+    "generated_by": "edition-build-pipeline",
+    "generated_at": "2026-06-13T05:57:00Z",
+    "components": [
+        {
+            "component": "hestiaos-core",
+            "repository": "https://github.com/hestiaos/hestiaos-core",
+            "version": "0.1.0",
+            "ref_type": "commit",
+            "ref": "0000000000000000000000000000000000000000",
+            "commit": "0000000000000000000000000000000000000000",
+            "artifact_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "provenance_class": "clean-room",
+            "security_status": "clean",
+            "license_status": "cleared",
+            "validation_status": "validated"
+        },
+        {
+            "component": "mcp-server",
+            "repository": "https://github.com/hestiaos/mcp-server",
+            "version": "0.1.0",
+            "ref_type": "commit",
+            "ref": "0000000000000000000000000000000000000000",
+            "commit": "0000000000000000000000000000000000000000",
+            "artifact_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "provenance_class": "clean-room",
+            "security_status": "clean",
+            "license_status": "cleared",
+            "validation_status": "validated"
+        },
+        {
+            "component": "sdk",
+            "repository": "https://github.com/hestiaos/sdk",
+            "version": "0.1.0",
+            "ref_type": "commit",
+            "ref": "0000000000000000000000000000000000000000",
+            "commit": "0000000000000000000000000000000000000000",
+            "artifact_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "provenance_class": "clean-room",
+            "security_status": "clean",
+            "license_status": "cleared",
+            "validation_status": "validated"
+        }
+    ],
+    "validation": {
+        "secret_exclusion_gate": "passed",
+        "runtime_artifact_exclusion_gate": "passed",
+        "public_exposure_gate": "passed"
+    }
+}

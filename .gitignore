@@ -1,0 +1,38 @@
+# Secrets / credentials — never commit
+*.env
+.env.*
+!.env.example
+**/*.key
+**/*.pem
+**/*.crt
+**/*.bin
+**/*.master.key
+**/vault/**
+**/credential_vault.*
+
+# Runtime / generated
+logs/
+reports/
+**/*.db
+**/*.db-wal
+**/*.db-shm
+__pycache__/
+.pytest_cache/
+*.log
+
+# Environments / dependencies
+venv/
+.venv/
+.venv-*/
+venv2/
+node_modules/
+
+# Tooling / local
+.DS_Store
+.idea/
+.vscode/
+
+# macOS/SMB-Artefakte
+.smbdelete*
+.DS_Store
+.fuse_hidden*

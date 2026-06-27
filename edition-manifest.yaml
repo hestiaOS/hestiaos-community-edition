@@ -1,0 +1,37 @@
+# HestiaOS Community Edition — Edition Manifest
+#
+# Free, minimal HestiaOS composition. Public, secret-free edition boundary.
+# Executable artifacts are produced by the edition build pipeline from
+# separately versioned components — not vendored here.
+#
+# Real commit SHAs and SHA256 hashes live in component-lock.json.
+#
+edition: community
+edition_type: community
+build_profile: dev
+runtime_profile: minimal
+governance_profile: community
+publication_status: public
+design_gate:
+  status: approved
+  review_date: "2026-06-15"
+  reviewer: "HestiaOS Governance Kernel"
+  summary: "Community Edition v0.1 — 3 Kern-Komponenten (hestiaos-core, mcp-server, sdk) alle validated/cleared. Release-Thresholds für internal erfüllt. Design gate approved."
+  evidence_ref: "https://github.com/hestiaos/hestiaos-community-edition/issues/1"
+included_components:
+  # ── Governance & Execution Core ──
+  - hestiaos-core # Governance kernel, execution runtime
+  - mcp-server # MCP server/tooling
+
+  # ── Public SDK ──
+  - sdk # Public SDK
+
+excluded_components:
+  - enterprise-only modules
+  - science-only / research modules
+  - internal ultimate-dev modules
+  - internal infrastructure / operations tooling
+notes: >
+  HestiaOS Community Edition — Developer Preview.
+  Free, minimal composition. No enterprise or science capabilities.
+  Secret-free by design. Local-first defaults (127.0.0.1).

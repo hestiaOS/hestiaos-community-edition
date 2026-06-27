@@ -1,0 +1,34 @@
+# HestiaOS Community Edition — Profile
+# Default, secret-free configuration. No real credentials, hosts, or tokens.
+
+profile: community
+profile_version: 0.1.0
+base_kernel_version: unpinned        # resolved by the build pipeline
+
+# Module classes included in the Community projection.
+include_classes:
+  - KERNEL_CORE
+  - KERNEL_SERVICE
+  - KERNEL_INTERFACE
+  - SHARED_ADAPTER        # only where edition-neutral
+  - COMMUNITY_MODULE
+
+exclude_classes:
+  - ENTERPRISE_MODULE
+  - SCIENCE_MODULE
+  - RUNTIME_ARTIFACT
+
+# Default policies for the free edition (minimal, safe defaults).
+defaults:
+  governance: default-policies
+  network:
+    bind: 127.0.0.1                  # local-first by default; no 0.0.0.0
+    example_node: node.example.internal
+  secrets:
+    source: runtime-only             # never committed; injected at runtime
+    docs: see .env.example in components
+
+# No enterprise/science capabilities enabled by default.
+features:
+  enterprise: false
+  science: false
